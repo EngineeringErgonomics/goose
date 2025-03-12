@@ -83,6 +83,9 @@ Present the information in order of significance or quality. Focus specifically 
             "used_fetch_tool".to_string(),
             EvaluationMetric::Boolean(used_fetch_tool),
         ));
+        
+        // We only track these two metrics in the evaluation itself
+        // The OpenAI evaluation will be done in the analysis script
 
         // Copy the session file to the current working directory
         if let Err(e) = copy_session_to_cwd() {
