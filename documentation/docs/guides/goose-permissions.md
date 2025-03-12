@@ -15,7 +15,7 @@ Goose’s permissions determine how much autonomy it has when modifying files, u
 | Mode             | Description                                                                                             | Best For                                                                               |
 | ---------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | **Auto Mode**    | Goose can modify files, use extensions, and delete files **without requiring approval**.                | Users who want **full automation** and seamless integration into their workflow.       |
-| **Approve Mode** | Goose **asks for confirmation** before modifying, creating, deleting files and before using extensions. | Users who want to **review and approve** changes and extension use before they happen. |
+| **Approve Mode** | Goose **asks for confirmation** before all tools and extensions. | Users who want to **review and approve** any changes and extension use before they happen. |
 | **Chat Mode**    | Goose **only engages in chat**, with no extension use or file modifications.                            | Users who prefer a **conversational AI experience** without automation.                |
 
 :::warning

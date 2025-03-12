@@ -223,7 +223,7 @@ impl Agent for TruncateAgent {
         let config = capabilities.provider().get_model_config();
         let mut system_prompt = capabilities.get_system_prompt().await;
         let mut toolshim_tools = vec![];
-        if config.interpret_chat_tool_calls {
+        if config.toolshim {
             // If tool interpretation is enabled, modify the system prompt to instruct to return JSON tool requests
             system_prompt = modify_system_prompt_for_tool_json(&system_prompt, &tools);
             // make a copy of tools before empty
@@ -251,7 +251,7 @@ impl Agent for TruncateAgent {
                 ).await {
                     Ok((mut response, usage)) => {
                         // Post-process / structure the response only if tool interpretation is enabled
-                        if config.interpret_chat_tool_calls {
+                        if config.toolshim {
                             let interpreter = OllamaInterpreter::new()
                                 .map_err(|e| anyhow::anyhow!("Failed to create OllamaInterpreter: {}", e))?;
 
@@ -296,7 +296,7 @@ impl Agent for TruncateAgent {
                         // Clone goose_mode once before the match to avoid move issues
                         let mode = goose_mode.clone();
                         match mode.as_str() {
-                            "approve" => {
+                            "approve" | "smart_approve" => {
                                 let mut read_only_tools = Vec::new();
                                 let mut needs_confirmation = Vec::<&ToolRequest>::new();
                                 let mut approved_tools = Vec::new();
@@ -319,7 +319,7 @@ impl Agent for TruncateAgent {
                                 }
 
                                 // Only check read-only status for tools needing confirmation
-                                if !needs_confirmation.is_empty() {
+                                if !needs_confirmation.is_empty() && mode == "smart_approve" {
                                     read_only_tools = detect_read_only_tools(&capabilities, needs_confirmation.clone()).await;
                                 }
 

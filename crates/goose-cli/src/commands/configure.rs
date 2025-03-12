@@ -299,12 +299,12 @@ pub async fn configure_provider_dialog() -> Result<bool, Box<dyn Error>> {
     // Create model config with env var settings
     let model_config = goose::model::ModelConfig::new(model.clone())
         .with_max_tokens(Some(50))
-        .with_tool_interpretation(
+        .with_toolshim(
             std::env::var("GOOSE_TOOLSHIM")
                 .map(|val| val == "1" || val.to_lowercase() == "true")
                 .unwrap_or(false),
         )
-        .with_tool_interpreter(std::env::var("GOOSE_TOOLSHIM_OLLAMA_MODEL").ok());
+        .with_toolshim_model(std::env::var("GOOSE_TOOLSHIM_OLLAMA_MODEL").ok());
 
     let provider = create(provider_name, model_config)?;
 
@@ -705,6 +705,11 @@ pub fn configure_goose_mode_dialog() -> Result<(), Box<dyn Error>> {
         .item(
             "approve",
             "Approve Mode",
+            "All tools, extensions and file modificatio will require human approval"
+        )
+        .item(
+            "smart_approve",
+            "Smart Approve Mode",
             "Editing, creating, deleting files and using extensions will require human approval"
         )
         .item(
@@ -721,7 +726,11 @@ pub fn configure_goose_mode_dialog() -> Result<(), Box<dyn Error>> {
         }
         "approve" => {
             config.set_param("GOOSE_MODE", Value::String("approve".to_string()))?;
-            cliclack::outro("Set to Approve Mode - modifications require approval")?;
+            cliclack::outro("Set to Approve Mode - all tools and modifications require approval")?;
+        }
+        "smart_approve" => {
+            config.set_param("GOOSE_MODE", Value::String("smart_approve".to_string()))?;
+            cliclack::outro("Set to Smart Approve Mode - modifications require approval")?;
         }
         "chat" => {
             config.set_param("GOOSE_MODE", Value::String("chat".to_string()))?;
