@@ -2,60 +2,6 @@
 
 This directory contains scripts for running and analyzing Goose benchmarks.
 
-## analyze_benchmark_results.py
-
-This Python script aggregates and analyzes benchmark results from eval_result.json files across all benchmark runs.
-
-### Prerequisites
-
-- Python 3.6 or higher
-
-### Usage
-
-```bash
-# Basic usage (scans current directory for benchmark-* directories)
-./analyze_benchmark_results.py
-
-# Specify a custom base directory
-./analyze_benchmark_results.py --base-dir /path/to/benchmarks
-
-# Choose output format (csv, markdown, or both)
-./analyze_benchmark_results.py --format csv
-
-# Specify a custom output filename (without extension)
-./analyze_benchmark_results.py --output my-benchmark-report
-```
-
-### Output Files
-
-The script generates two types of output files:
-
-1. **CSV File**: Contains all metrics in a tabular format with one row per evaluation.
-   - Useful for filtering, sorting, and additional analysis in spreadsheet applications.
-
-2. **Markdown File**: Organizes results hierarchically by provider, model, timestamp, and suite.
-   - Includes summary statistics and model comparison tables.
-   - Shows success criteria and errors for each evaluation.
-
-### Directory Structure
-
-The script expects benchmark results in the following directory structure:
-
-```
-benchmark-[provider]-[model]/
-  └── YYYY-MM-DD-HH:MM:SS/
-      └── [suite]/
-          └── [evaluation]/
-              └── eval_result.json
-```
-
-Where:
-- `provider`: The LLM provider (e.g., ollama, openai)
-- `model`: The model name (e.g., mistral, claude-3-opus)
-- The timestamp directory represents when the benchmark was run
-- `suite`: The evaluation suite name (e.g., core, vibes)
-- `evaluation`: The specific evaluation name (e.g., blog_summary, flappy_bird)
-
 ## run-benchmarks.sh
 
 This script runs Goose benchmarks across multiple provider:model pairs and analyzes the results.
