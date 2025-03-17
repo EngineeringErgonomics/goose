@@ -44,7 +44,7 @@ impl Evaluation for SquirrelCensus {
         // Collect baseline metrics (execution time, token usage, tool calls)
         let (messages, perf_metrics) = collect_baseline_metrics(
             &mut agent,
-                "Create a Python script called analyze_squirrels.py that analyzes the CSV file at squirrel_data.csv. Do not ask for any clarification or further instructions - proceed with the implementation as specified below.
+                "Create a Python script called analyze_squirrels.py that analyzes the CSV file at squirrel-data.csv. Do not ask for any clarification or further instructions - proceed with the implementation as specified below.
 
 The script should use pandas to answer these specific questions:
 1. Which area (Area column) has the most squirrels spotted? For this area, what is the most common Primary Fur Color of squirrels?
