@@ -113,9 +113,6 @@ def generate_leaderboard(input_csv: str, output_csv: str) -> None:
     ]
     leaderboard_df = leaderboard_df[column_order]
     
-    # Format percentage for success rate
-    leaderboard_df['success_rate_percent'] = (leaderboard_df['avg_success_rate'] * 100).round(1).astype(str) + '%'
-    
     # Round numeric columns
     leaderboard_df['avg_tokens_successful'] = leaderboard_df['avg_tokens_successful'].round(0).astype(int)
     leaderboard_df['avg_tool_calls_successful'] = leaderboard_df['avg_tool_calls_successful'].round(1)

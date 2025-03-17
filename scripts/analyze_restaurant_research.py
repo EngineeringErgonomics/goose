@@ -65,7 +65,7 @@ def load_and_analyze_results(file_path: str) -> Dict[str, Any]:
         # Calculate correctness score (sum of two boolean metrics plus OpenAI score)
         correctness_score = (used_fetch_tool or False) + (valid_markdown_format or False) + openai_evaluation
         
-        # Determine if run was successful (correctness_score of 3 means all three criteria were met)
+        # Determine if run was successful (correctness_score of 4 means all three criteria were met)
         correct_results = correctness_score == 4
         
         return {
