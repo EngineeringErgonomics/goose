@@ -33,15 +33,15 @@ pub async fn handle_configure() -> Result<(), Box<dyn Error>> {
                     style("Tip").green().italic(),
                     style("goose configure").cyan()
                 );
-                // Since we are setting up for the first time, we'll also enable the developer system
-                // This operation is best-effort and errors are ignored
-                ExtensionManager::set(ExtensionEntry {
-                    enabled: true,
-                    config: ExtensionConfig::Builtin {
-                        name: "developer".to_string(),
-                        timeout: Some(goose::config::DEFAULT_EXTENSION_TIMEOUT),
-                    },
-                })?;
+                // // Since we are setting up for the first time, we'll also enable the developer system
+                // // This operation is best-effort and errors are ignored
+                // ExtensionManager::set(ExtensionEntry {
+                //     enabled: true,
+                //     config: ExtensionConfig::Builtin {
+                //         name: "developer".to_string(),
+                //         timeout: Some(goose::config::DEFAULT_EXTENSION_TIMEOUT),
+                //     },
+                // })?;
             }
             Ok(false) => {
                 let _ = config.clear();
